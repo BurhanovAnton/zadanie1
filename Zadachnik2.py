@@ -26,13 +26,45 @@ def opn():
 
 
 def rd():
-    with open("zadachi.json", "a",encoding='utf-8') as fl:
-       # for i in data:
-            #tnew = input('Введите тему')
-            json.dump(tnew, fl)
+    with open("zadachi.json", "r", encoding='utf-8') as fl:
+        data = json.load(fl)
 
 
 
+    while True:
+        new_data = {
+            "title": '',
+            "id":'',
+            "tasks": []
+        }
+        tnew = input('Введите новую тему (команда для выхода 0)')
+        if tnew == '0':
+            break
+        new_data["title"] = tnew
+        new_data["id"] = get_last_id (data) + 1
+        while True:
+            new_tasks = {
+                "task": '',
+                "answers": ''
+            }
+            znew = input ('Введите задачу(команда для выхода 0)')
+            if znew == '0':
+                break
+            new_tasks["task"] = znew
+            onew = input('Введите ответ')
+            new_tasks["answers"] = onew
+            new_data['tasks'].append(new_tasks)
+        data.append(new_data)
+    with open("zadachi.json", "w", encoding='utf-8') as fl:
+        json.dump(data,fl,indent=4)
+
+
+def get_last_id (data):
+    n_id = 0
+    for i in data:
+        if i['id']>n_id:
+            n_id=i['id']
+    return n_id
 
 
 
