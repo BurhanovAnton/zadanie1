@@ -42,8 +42,11 @@ def rd():
             break
         new_data["title"] = tnew
         new_data["id"] = get_last_id (data) + 1
+
+        new_t_id = 1
         while True:
             new_tasks = {
+                "id":'',
                 "task": '',
                 "answers": ''
             }
@@ -53,6 +56,8 @@ def rd():
             new_tasks["task"] = znew
             onew = input('Введите ответ')
             new_tasks["answers"] = onew
+            new_tasks["id"] = new_t_id
+            new_t_id = new_t_id+1
             new_data['tasks'].append(new_tasks)
         data.append(new_data)
     with open("zadachi.json", "w", encoding='utf-8') as fl:
@@ -62,8 +67,8 @@ def rd():
 def get_last_id (data):
     n_id = 0
     for i in data:
-        if i['id']>n_id:
-            n_id=i['id']
+        if i['id'] > n_id:
+            n_id = i['id']
     return n_id
 
 
