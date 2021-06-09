@@ -32,19 +32,18 @@ class Task:
 #Метод вывода задач
     def output_of_tasks(self):
         #for task1 in self.task:
-            print (self.task,answer.answer)
+            print (self.task, '\n','Выберите номер правильного ответа \n', self.answers,'\n')
+            print (self.task, '\n', 'Выберите номер правильного ответа \n', Answer.answer)
             #print (self.task,self.answers)
 
 
 #Класс инициализации урока
 class LessonInitialization:
     lesson_id: int
-    task: [Task]
     lesson_anthology: str
 
-    def __init__(self, lesson_id, task, lesson_anthology):
+    def __init__(self, lesson_id, lesson_anthology):
         self.lesson_id = lesson_id
-        self.task = task
         self.lesson_anthology = lesson_anthology
 
 
@@ -65,5 +64,5 @@ task2 = Task(2, 'zadacha2', [answer1, answer2, answer3, answer4])
 
 print (task1.get_correct_answer().id)
 print (task2.get_correct_answer().id)
-print (task2.task)
-output_of_tasks()
+task1.output_of_tasks()
+task2.output_of_tasks()
