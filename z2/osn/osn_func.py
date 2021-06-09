@@ -1,3 +1,9 @@
+from otc.otc_func import opn
+# Функция открытия файла нового задания
+
+from zap.zap_func import rd
+# Функция записи нового задания
+
 def _osn_code():
     while True:
         comand = input('Введите номер команды \n')
