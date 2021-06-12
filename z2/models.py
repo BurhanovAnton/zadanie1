@@ -1,3 +1,6 @@
+import json
+
+
 class Answer:
     id: int
     task_id: int
@@ -29,24 +32,51 @@ class Task:
         self.task = task
         self.answers = answers
 
-#Метод вывода задач
-    def output_of_tasks(self):
-        #for task1 in self.task:
-            print (self.task, '\n','Выберите номер правильного ответа \n', self.answers,'\n')
-            print (self.task, '\n', 'Выберите номер правильного ответа \n', Answer.answer)
-            #print (self.task,self.answers)
+    # Метод вывода задач
+    def output_of_task_of_answers(self):
+        print('*' * 50)
+        print(self.task)
+        print('Выберите номер правильного ответа')
+        for answer in self.answers:
+            print(f'№{answer.id}. {answer.answer}')
 
 
-#Класс инициализации урока
+# Класс инициализации урока
 class LessonInitialization:
     lesson_id: int
     lesson_anthology: str
+    tasks: [Task]
 
-    def __init__(self, lesson_id, lesson_anthology):
+    def __init__(self, lesson_id, lesson_anthology, tasks):
         self.lesson_id = lesson_id
         self.lesson_anthology = lesson_anthology
+        self.tasks = tasks
 
 
+# Класс пользователь
+class User:
+    id: int
+    name: str
+    level: int
+
+    def __init__(self, id, name, level):
+        self.id = id
+        self.name = name
+        self.level = level
+
+
+def serialize_data(file_path):
+    with open(file_path, "r", encoding='utf-8') as fl:
+        _data = json.load(fl)
+        for row in _data:
+            lesson = LessonInitialization(row['id'], row['title'], [])
+            for task_row in row['tasks']:
+                task = Task(task_row['id'], task_row['task'], [])
+            print(lesson)
+
+serialize_data('zadachi.json')
+
+'''
 
 answer1 = Answer (1, 1, '1 ot', False)
 answer2 = Answer (2, 1, '2 ot', False)
@@ -65,4 +95,4 @@ task2 = Task(2, 'zadacha2', [answer1, answer2, answer3, answer4])
 print (task1.get_correct_answer().id)
 print (task2.get_correct_answer().id)
 task1.output_of_tasks()
-task2.output_of_tasks()
+task2.output_of_tasks()'''
