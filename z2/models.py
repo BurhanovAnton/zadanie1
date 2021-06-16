@@ -2,19 +2,19 @@ import json
 
 
 class Answer:
-    id: int
+    answer_id: int
     task_id: int
     answer: str
     is_correct: bool
 
-    def __init__(self, id, task_id, answer, is_correct):
-        self.id = id
+    def __init__(self, answer_id, task_id, answer, is_correct):
+        self.answer_id = answer_id
         self.task_id = task_id
         self.answer = answer
         self.is_correct = is_correct
 
 class Task:
-    id: int
+    task_id: int
     task: str
     answers: [Answer]
 
@@ -27,8 +27,8 @@ class Task:
         #for answer in self.answers:
             #print (answer)
 
-    def __init__(self, id, task, answers):
-        self.id = id
+    def __init__(self, task_id, task, answers):
+        self.task_id = task_id
         self.task = task
         self.answers = answers
 
@@ -38,7 +38,7 @@ class Task:
         print(self.task)
         print('Выберите номер правильного ответа')
         for answer in self.answers:
-            print(f'№{answer.id}. {answer.answer}')
+            print(f'№{answer.answer_id}. {answer.answer}')
 
 
 # Класс инициализации урока
@@ -64,20 +64,43 @@ class User:
         self.name = name
         self.level = level
 
-
+# Метод сериализации
 def serialize_data(file_path):
     with open(file_path, "r", encoding='utf-8') as fl:
         _data = json.load(fl)
         for row in _data:
-            lesson = LessonInitialization(row['id'], row['title'], [])
+            lesson = LessonInitialization(row['topic_id'], row['title'], [])
             for task_row in row['tasks']:
-                task = Task(task_row['id'], task_row['task'], [])
-            print(lesson)
+                task = Task(task_row['task_id'], task_row['task'], [])
+            print(f'№{task.task_id}. {task.task}')
+           # print(f'№{task.answers.answer_id}. {task.answers}')
+            #print(lesson)
 
-serialize_data('zadachi.json')
+# Метод сериализации ответов
+def serialize_answers(file_path):
+    with open(file_path, "r", encoding='utf-8') as fl:
+        _data = json.load(fl)
+        for row in _data:
+            for task_row in row['tasks']:
+                answer_lesson = Answer([], [], [], task_row['task_id'])
+                for answers_row in row['answers']:
+                    if answers_row.is_correct == true:
+                        Answer.is_correct = True
+                    elif answers_row['is_correct'] == false:
+                        Answer.is_correct = False
+                    answer_lesson = Answer(answers_row['answer_id'], answers_row['answer'], [])
+                    #answer_lesson = Answer(answers_row['answer_id'], answers_row['answer'],
+                    #                                    answers_row['is_correct'], [])
+                print(answer_lesson)
+
+
+
+
+
+
+
 
 '''
-
 answer1 = Answer (1, 1, '1 ot', False)
 answer2 = Answer (2, 1, '2 ot', False)
 answer3 = Answer (3, 1, '3 ot', True)
@@ -92,7 +115,21 @@ answer4 = Answer (4, 2, '4 ot', False)
 
 task2 = Task(2, 'zadacha2', [answer1, answer2, answer3, answer4])
 
-print (task1.get_correct_answer().id)
-print (task2.get_correct_answer().id)
-task1.output_of_tasks()
-task2.output_of_tasks()'''
+#print (task1.get_correct_answer().id)
+#print (task2.get_correct_answer().id)
+#task1.output_of_tasks()
+#task2.output_of_tasks()
+'''
+
+for out_lesson in
+    print (f'Задача №{task.task_id}. {task.task}')
+    for answer in self.answers:
+        print('Выберите номер правильного ответа ')
+        print(f'№{out_answer.answer_id}. {out_answer.answer}')
+    comand = input('Введите номер команды \n')
+
+
+
+serialize_data('zadachi.json')
+#serialize_answers('zadachi.json')
+output_of_task_of_answers
