@@ -97,11 +97,11 @@ def serialize_user(file_path):
     with open(file_path, "r", encoding='utf-8') as fl:
         _data = json.load(fl)
         for row in _data:
-            user = User(row['user_id'], row['name'], [])
+            user1 = User(row['user_id'], row['name'], [])
             for level_row in row['training']:
                 user_training = Level(level_row['topic_id'], level_row['task_id'], level_row['appraisal'])
-                user_list.append(user_training)
-            user_list.append(user)
+                user1.levels.append(user_training)
+            user_list.append(user1)
     return user_list
 
 def serialize_data(file_path):
@@ -126,12 +126,13 @@ def serialize_data(file_path):
 def output_user(user: User):
     ''' Функция вывода пользователей'''
     print(f'Зовут {user.name}. Cохранен под номером {user.id}')
-    for row in user['training']:
+    for row in user.levels:
         print('Изучает')
         print(f'тема № {row.topic_id}.Задание № {row.task_id}. Оценка {row.appraisal}')
+        print ('*' * 50)
 
 def output_object(lesson: LessonInitialization):
-    ''' Функция вывода урока, заданий и ответов к ним са проверкой'''
+    ''' Функция вывода урока, заданий и ответов к ним с проверкой'''
     print('*' * 50)
     print(f'Тема №{lesson.lesson_id}. {lesson.lesson_anthology}')
     print('*' * 50)
@@ -156,5 +157,5 @@ user_list = serialize_user('users.json')
 for user in user_list:
     output_user(user)
 
-for lesson in lessons_list:
-   output_object(lesson)
+#for lesson in lessons_list:
+  # output_object(lesson)
